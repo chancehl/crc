@@ -1,5 +1,5 @@
 {
-  "name": "crc-cli",
+  "name": "@chancehl/crc",
   "version": "0.1.0",
   "description": "",
   "main": "./bin/index.js",

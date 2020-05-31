@@ -1,0 +1,26 @@
+{
+  "name": "crc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./bin/index.js",
+  "scripts": {
+    "install-global": "sudo npm install -g .",
+    "uninstall-global": "sudo npm uninstall -g .",
+    "refresh": "npm run uninstall-global && npm run install-global"
+  },
+  "bin": {
+    "crc": "./bin/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "lodash": "^4.17.15",
+    "prompt-sync": "^4.2.0",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.6"
+  }
+}

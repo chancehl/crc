@@ -1,0 +1,6 @@
+import { COMPONENT_NAME } from './COMPONENT_NAME'
+
+export {
+	COMPONENT_NAME as default,
+	COMPONENT_NAME,
+}

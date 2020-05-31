@@ -1,0 +1,9 @@
+import React from 'react'
+
+interface Props {}
+
+const COMPONENT_NAME: React.FC<Props> = (props) => {
+    return <React.Fragment>COMPONENT_NAME</React.Fragment>
+}
+
+export { COMPONENT_NAME as default, COMPONENT_NAME }

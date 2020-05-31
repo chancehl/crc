@@ -1,0 +1,7 @@
+import React from 'react'
+
+const COMPONENT_NAME = (props) => {
+    return <React.Fragment>COMPONENT_NAME</React.Fragment>
+}
+
+export { COMPONENT_NAME as default, COMPONENT_NAME }

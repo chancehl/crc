@@ -1,0 +1,20 @@
+import React from 'react'
+
+interface Props {}
+
+class COMPONENT_NAME extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {};
+  }
+
+  render() {
+    return <h1>Hello, COMPONENT_NAME</h1>;
+  }
+}
+
+export {
+	COMPONENT_NAME as default,
+	COMPONENT_NAME,
+}

@@ -1,4 +1,4 @@
-const RUNTIME_CONFIG_FILE = '.crcrc.json'
+const RUNTIME_CONFIG_FILE = 'crc.json'
 
 const DEFAULT_RUNTIME_CONFIGURATION = {
     createDir: true,

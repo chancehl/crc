@@ -7,10 +7,16 @@ const { Logger, parseArgs } = require('./utils')
 
 // Parse arguments
 const args = parseArgs()
-const name = args.name || 'DEFAULT_NAME'
+const name = args.name
 
 // Initialize logger
 const logger = new Logger({ verbose: args.verbose })
+
+// Validate inputs
+if (!name) {
+    logger.error('Parameter --name not provided. Please specify a name.')
+    process.exit(1)
+}
 
 // Generate file/directory metadata
 const cwd = process.cwd()

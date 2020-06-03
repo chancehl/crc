@@ -23,3 +23,4 @@ crc --name MyNewComponent --typescript --type class
 ### Changelog ###
 **Jun 2 2020**
 *     chore(README): Added changelog to readme
+*     chore(cli): Requiring --name parameter

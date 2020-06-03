@@ -24,3 +24,4 @@ crc --name MyNewComponent --typescript --type class
 **Jun 2 2020**
 *     chore(README): Added changelog to readme
 *     chore(cli): Requiring --name parameter
+*     feat(cli): Users may now provide input via crc.json file

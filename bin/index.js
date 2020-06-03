@@ -2,12 +2,15 @@
 const fs = require('fs')
 const path = require('path')
 const prompt = require('prompt-sync')()
+const { merge } = require('lodash')
 
 const { Logger, parseArgs } = require('./utils')
+const { RUNTIME_CONFIG_FILE } = require('./constants')
 
 // Parse arguments
 const args = parseArgs()
 const name = args.name
+const cwd = process.cwd()
 
 // Initialize logger
 const logger = new Logger({ verbose: args.verbose })
@@ -18,10 +21,28 @@ if (!name) {
     process.exit(1)
 }
 
+// Look for crc.json
+let config = { ...args }
+
+const runtimeConfigPath = path.join(cwd, RUNTIME_CONFIG_FILE)
+
+if (fs.existsSync(runtimeConfigPath)) {
+    const runtimeConfigContents = fs.readFileSync(runtimeConfigPath, { encoding: 'utf-8' })
+
+    try {
+        // Try to parse the user provided config values
+        const parsedConfig = JSON.parse(runtimeConfigContents)
+
+        // Merge these with the existing args provided
+        merge(config, parsedConfig)
+    } catch (ex) {
+        logger.warn('Could not parse crc.json file. Input will be taken from command line.')
+    }
+}
+
 // Generate file/directory metadata
-const cwd = process.cwd()
-const type = args.type === 'functional' ? 'functional' : 'class'
-const extension = args.typescript ? 'ts' : 'js'
+const type = config.type === 'functional' ? 'functional' : 'class'
+const extension = config.typescript ? 'ts' : 'js'
 const componentFileName = `${name}.${extension}x`
 const indexFileName = `index.${extension}`
 

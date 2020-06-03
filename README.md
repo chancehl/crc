@@ -14,7 +14,7 @@ crc --name MyNewComponent --type class
 * [x] Generate a class component - javascript
 * [x] Generate a class component - typescript
 * [x] User-defined crcrc.json file
-* [ ] User-defined output location
+* [x] User-defined output location
 * [ ] User-defined templates
 * [ ] Leverage yargs help functionality
 
@@ -23,6 +23,7 @@ crc --name MyNewComponent --type class
 **Jun 3 2020**
 * chore(README): Added new goal to roadmap
 * chore(cli): Deprecrating --type flag in favor of new --class flag (defaulting to functional components)
+* feat(cli): Now accepting destination flag
 
 **Jun 2 2020**
 * feat(cli): Users may now provide input via crc.json file

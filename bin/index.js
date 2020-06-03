@@ -45,6 +45,7 @@ const type = config.class ? 'class' : 'functional'
 const extension = config.typescript ? 'ts' : 'js'
 const componentFileName = `${name}.${extension}x`
 const indexFileName = `index.${extension}`
+const dest = config.destination || cwd
 
 // Read our template and replace our tokens with the user provided input
 const componentTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/${type}-component.${extension}.txt`), { encoding: 'utf-8' })
@@ -54,7 +55,7 @@ const componentBody = componentTemplate.replace(/COMPONENT_NAME/g, name)
 const indexBody = indexTemplate.replace(/COMPONENT_NAME/g, name)
 
 // Write file to location
-const destinationDirectory = path.join(cwd, name)
+const destinationDirectory = path.join(dest, name)
 const componentDestination = path.join(destinationDirectory, componentFileName)
 const indexDestination = path.join(destinationDirectory, indexFileName)
 

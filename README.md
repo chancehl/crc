@@ -22,6 +22,7 @@ crc --name MyNewComponent --type class
 ### Changelog ###
 **Jun 3 2020**
 * chore(README): Added new goal to roadmap
+* chore(cli): Deprecrating --type flag in favor of new --class flag (defaulting to functional components)
 
 **Jun 2 2020**
 * feat(cli): Users may now provide input via crc.json file

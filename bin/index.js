@@ -41,7 +41,7 @@ if (fs.existsSync(runtimeConfigPath)) {
 }
 
 // Generate file/directory metadata
-const type = config.type === 'functional' ? 'functional' : 'class'
+const type = config.class ? 'class' : 'functional'
 const extension = config.typescript ? 'ts' : 'js'
 const componentFileName = `${name}.${extension}x`
 const indexFileName = `index.${extension}`

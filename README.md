@@ -18,3 +18,8 @@ crc --name MyNewComponent --typescript --type class
 * [ ] User-defined crcrc.json file
 * [ ] User-defined templates
 * [ ] Leverage yargs help functionality
+
+
+### Changelog ###
+**Jun 2 2020**
+*     chore(README): Added changelog to readme

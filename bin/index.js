@@ -40,9 +40,7 @@ if (!fs.existsSync(destinationDirectory)) {
 if (fs.existsSync(componentDestination) || fs.existsSync(indexDestination)) {
     logger.warn(`A component named ${componentFileName} or an index file already exists at ${componentDestination}.`)
 
-    const overwrite = prompt('Would you like to overwrite these files? (y/n):')
-
-    if (overwrite === 'y') {
+    if (prompt('Would you like to overwrite these files? (y/n):') === 'y') {
         fs.writeFileSync(componentDestination, componentBody)
         fs.writeFileSync(indexDestination, indexBody)
     } else {

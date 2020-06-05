@@ -23,11 +23,14 @@ crc --name MyNewComponent --destination ./components
 * [x] Generate a class component - typescript
 * [x] User-defined crcrc.json file
 * [x] User-defined output location
-* [ ] User-defined templates
+* [x] User-defined templates
 * [ ] Leverage yargs help functionality
 
 
 ### Changelog ###
+**Jun 4 2020**
+* feat(cli): Implemented templating and optionally disabling the directory creation
+
 **Jun 3 2020**
 * chore(README): Added new goal to roadmap
 * chore(cli): Deprecrating --type flag in favor of new --class flag (defaulting to functional components)

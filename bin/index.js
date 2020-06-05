@@ -43,40 +43,43 @@ if (fs.existsSync(runtimeConfigPath)) {
 // Generate file/directory metadata
 const type = config.class ? 'class' : 'functional'
 const extension = config.typescript ? 'ts' : 'js'
+
 const componentFileName = `${name}.${extension}x`
 const indexFileName = `index.${extension}`
-const dest = config.destination || cwd
 
-// Read our template and replace our tokens with the user provided input
-const componentTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/${type}-component.${extension}.txt`), { encoding: 'utf-8' })
-const indexTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/index.txt`), { encoding: 'utf-8' })
+const template = config.template ? path.join(cwd, config.template) : null
 
-const componentBody = componentTemplate.replace(/COMPONENT_NAME/g, name)
-const indexBody = indexTemplate.replace(/COMPONENT_NAME/g, name)
+let destinationDir = config.destination || cwd
 
-// Write file to location
-const destinationDirectory = path.join(dest, name)
-const componentDestination = path.join(destinationDirectory, componentFileName)
-const indexDestination = path.join(destinationDirectory, indexFileName)
-
-// Create destination directory
-if (!fs.existsSync(destinationDirectory)) {
-    fs.mkdirSync(destinationDirectory)
+if (typeof config.createDirectory === 'undefined' || config.createDirectory === true) {
+    destinationDir = path.join(destinationDir, name)
 }
 
-// Create desination component & index
+// Read our template and replace our tokens with the user provided input
+const componentDestination = path.join(destinationDir, componentFileName)
+const componentTemplate = fs.readFileSync(template || path.resolve(__dirname, `./templates/${type}-component.${extension}.txt`), { encoding: 'utf-8' })
+const componentBody = componentTemplate.replace(/COMPONENT_NAME/g, name)
+
+const indexDestination = path.join(destinationDir, indexFileName)
+const indexTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/index.txt`), { encoding: 'utf-8' })
+const indexBody = indexTemplate.replace(/COMPONENT_NAME/g, name)
+
+// Create destination directory
+if (!fs.existsSync(destinationDir)) {
+    fs.mkdirSync(destinationDir)
+}
+
+// Check to see if component already exists
 if (fs.existsSync(componentDestination) || fs.existsSync(indexDestination)) {
     logger.warn(`A component named ${componentFileName} or an index file already exists at ${componentDestination}.`)
 
-    if (prompt('Would you like to overwrite these files? (y/n):') === 'y') {
-        fs.writeFileSync(componentDestination, componentBody)
-        fs.writeFileSync(indexDestination, indexBody)
-    } else {
+    if (prompt('Would you like to overwrite these files? (y/n):') !== 'y') {
         process.exit(1)
     }
-} else {
-    fs.writeFileSync(componentDestination, componentBody)
-    fs.writeFileSync(indexDestination, indexBody)
 }
+
+// Create desination component & index
+fs.writeFileSync(componentDestination, componentBody)
+fs.writeFileSync(indexDestination, indexBody)
 
 logger.log(`Component created at ${componentDestination}`)

@@ -30,6 +30,7 @@ crc --name MyNewComponent --destination ./components
 ### Changelog ###
 **Jun 4 2020**
 * feat(cli): Implemented templating and optionally disabling the directory creation
+* chore(logging): Implemented better error logging
 
 **Jun 3 2020**
 * chore(README): Added new goal to roadmap

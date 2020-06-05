@@ -66,7 +66,12 @@ const indexBody = indexTemplate.replace(/COMPONENT_NAME/g, name)
 
 // Create destination directory
 if (!fs.existsSync(destinationDir)) {
-    fs.mkdirSync(destinationDir)
+    try {
+        fs.mkdirSync(destinationDir)
+    } catch (ex) {
+        logger.error(`Encountered an error while creating destination directory at ${destinationDir}.\n${ex}`)
+        process.exit(1)
+    }
 }
 
 // Check to see if component already exists
@@ -74,12 +79,18 @@ if (fs.existsSync(componentDestination) || fs.existsSync(indexDestination)) {
     logger.warn(`A component named ${componentFileName} or an index file already exists at ${componentDestination}.`)
 
     if (prompt('Would you like to overwrite these files? (y/n):') !== 'y') {
+        logger.log('Terminating')
         process.exit(1)
     }
 }
 
 // Create desination component & index
-fs.writeFileSync(componentDestination, componentBody)
-fs.writeFileSync(indexDestination, indexBody)
+try {
+    fs.writeFileSync(componentDestination, componentBody)
+    fs.writeFileSync(indexDestination, indexBody)
+} catch (ex) {
+    logger.error(`Encountered an error while creating component or index file at ${componentDestination}.\n${ex}`)
+    process.exit(1)
+}
 
 logger.log(`Component created at ${componentDestination}`)

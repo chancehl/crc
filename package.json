@@ -15,8 +15,8 @@
   "author": "",
   "license": "ISC",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/chancehl/crc.git"
+    "type": "git",
+    "url": "https://github.com/chancehl/crc.git"
   },
   "dependencies": {
     "colors": "^1.4.0",

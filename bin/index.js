@@ -43,9 +43,13 @@ if (fs.existsSync(runtimeConfigPath)) {
 // Generate file/directory metadata
 const type = config.class ? 'class' : 'functional'
 const extension = config.typescript ? 'ts' : 'js'
+const createStories = config.stories ? true : false
+const createModule = config.css ? true : false
 
 const componentFileName = `${name}.${extension}x`
 const indexFileName = `index.${extension}`
+const storyFileName = `${name}.stories.${extension}x`
+const moduleFileName = `${name}.module.css`
 
 const template = config.template ? path.join(cwd, config.template) : null
 
@@ -63,6 +67,14 @@ const componentBody = componentTemplate.replace(/COMPONENT_NAME/g, name)
 const indexDestination = path.join(destinationDir, indexFileName)
 const indexTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/index.txt`), { encoding: 'utf-8' })
 const indexBody = indexTemplate.replace(/COMPONENT_NAME/g, name)
+
+const storyDestination = path.join(destinationDir, storyFileName)
+const storyTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/stories.${extension}.txt`), { encoding: 'utf-8' })
+const storyBody = storyTemplate.replace(/COMPONENT_NAME/g, name)
+
+const moduleDestination = path.join(destinationDir, moduleFileName)
+const moduleTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/css.module.txt`), { encoding: 'utf-8' })
+const moduleBody = moduleTemplate.replace(/COMPONENT_NAME/g, name)
 
 // Create destination directory
 if (!fs.existsSync(destinationDir)) {
@@ -84,10 +96,33 @@ if (fs.existsSync(componentDestination) || fs.existsSync(indexDestination)) {
     }
 }
 
+// Check to see if stories already exist
+if (createStories && fs.existsSync(storyDestination)) {
+    logger.warn(`Stories for a component named ${storyFileName} already exists at ${storyDestination}.`)
+
+    if (prompt('Would you like to overwrite these files? (y/n):') !== 'y') {
+        logger.log('Terminating')
+        process.exit(1)
+    }
+}
+
+// Check to see if stories already exist
+if (createModule && fs.existsSync(moduleDestination)) {
+    logger.warn(`A css module file for a component named ${moduleFileName} already exists at ${moduleDestination}.`)
+
+    if (prompt('Would you like to overwrite these files? (y/n):') !== 'y') {
+        logger.log('Terminating')
+        process.exit(1)
+    }
+}
+
 // Create desination component & index
 try {
     fs.writeFileSync(componentDestination, componentBody)
     fs.writeFileSync(indexDestination, indexBody)
+
+    if (createStories) fs.writeFileSync(storyDestination, storyBody)
+    if (createModule) fs.writeFileSync(moduleDestination, moduleBody)
 } catch (ex) {
     logger.error(`Encountered an error while creating component or index file at ${componentDestination}.\n${ex}`)
     process.exit(1)
